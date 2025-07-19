@@ -1,0 +1,528 @@
+/* public/style.css */
+
+/* Загальні стилі */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+
+    /* Оновлені стилі для стікерів */
+    /* Використовуємо два фонові зображення */
+   background-image: url('img/sticker1.png'), url('img/sticker2.png');
+    
+    /* Змінене розміщення стікерів: sticker1 - знизу ліворуч, sticker2 - зверху праворуч */
+    background-position: bottom 30px left 30px, top 30px right 30px; /* <--- Змінено тут */
+    
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    
+    /* Розмір стікерів (залишаємо без змін, якщо вони тебе влаштовують) */
+    background-size: 180px auto, 200px auto; 
+}
+
+/* Всі елементи, які перекривають фон, повинні мати напівпрозорий background-color.
+   Використовуємо rgba() замість суцільного кольору.
+*/
+.header {
+    background-color: rgba(0, 86, 179, 0.9); /* Темно-синій з прозорістю */
+    color: #ffffff;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* Головний контент, секції, картки новин тощо */
+.section {
+    background-color: rgba(255, 255, 255, 0.85); /* Білий з прозорістю */
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.news-card {
+    background-color: rgba(240, 248, 255, 0.9); /* Дуже світло-блакитний з прозорістю */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+/* Таблиця закладів */
+.establishments-table th {
+    background-color: rgba(0, 86, 179, 0.9); /* Темно-синій з прозорістю для заголовка таблиці */
+    color: #ffffff;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.establishments-table tbody tr:nth-child(even) {
+    background-color: rgba(245, 250, 255, 0.8); /* Дуже світлий синій для зебри з прозорістю */
+}
+
+.establishments-table tbody tr:hover {
+    background-color: rgba(224, 240, 255, 0.9); /* Трохи темніший синій при наведенні з прозорістю */
+}
+
+/* Футер */
+.footer {
+    background-color: rgba(0, 86, 179, 0.9); /* Темно-синій з прозорістю */
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.25);
+}
+
+/* Модальне вікно (Admin Login / Edit) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6); /* Напівпрозоре затемнення фону */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.98); /* Майже непрозорий білий, щоб текст був читабельним */
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* --- Залишаємо інші стилі без змін, якщо вони не стосуються фону --- */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-image {
+    width: 80px; /* Розмір твого логотипу-фото */
+    height: 80px;
+    object-fit: contain; /* Зберігає пропорції зображення */
+    animation: bounceIn 1s ease-out; /* Анімація появи логотипу */
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Плавний перехід */
+    border-radius: 40px; /* Можна додати заокруглення кутів, якщо це фото */
+}
+.logo-image:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 25px rgba(255, 255, 0, 0.5); /* Жовта підсвітка */
+    transform: scale(1.05); /* Збільшимо трохи при наведенні */
+}
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.site-title {
+    font-size: 2.8em;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden; /* Щоб анімація тексту не виходила за межі */
+}
+
+.site-title span {
+    display: inline-block; /* Для анімації кожної літери */
+    animation: revealText 1.5s ease-out forwards;
+    animation-delay: var(--delay); /* Використовуємо CSS-змінну для затримки */
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+@keyframes revealText {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+
+.admin-button {
+    background-color: #6daee1; /* Світло-синій */
+    color: #003366; /* Темніший синій для тексту */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-button:hover {
+    background-color: #5a9cd6; /* Трохи темніший синій */
+    transform: translateY(-2px);
+}
+
+/* Main Content Sections */
+.main-content {
+    padding: 30px 0;
+}
+
+.section h2 {
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.4em;
+    border-bottom: 3px solid #6daee1;
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* News Section */
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.news-card h3 {
+    color: #0056b3;
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.news-card p {
+    font-size: 0.95em;
+    color: #555;
+}
+
+.news-card .news-date {
+    font-size: 0.85em;
+    color: #777;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Categories Section */
+.categories-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.category-button {
+    background-color: #a7d9f7; /* Більш насичений світло-блакитний */
+    color: #004080; /* Темніший синій */
+    border: 1px solid #6daee1;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-button:hover,
+.category-button.active {
+    background-color: #0056b3;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+/* Establishments Table */
+.establishments-table-container {
+    overflow-x: auto;
+}
+
+.establishments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.establishments-table th,
+.establishments-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.establishments-table tbody tr:hover {
+    background-color: #e0f0ff; /* Трохи темніший синій при наведенні */
+}
+
+.establishments-table a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.establishments-table a:hover {
+    text-decoration: underline;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 1.1em;
+}
+
+/* Contacts Section */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.contact-info a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(0, 86, 179, 0.9); /* Темно-синій з прозорістю */
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.25);
+}
+
+/* Модальне вікно (Admin Login) */
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.modal-content h3 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 25px;
+    font-size: 1.9em;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="tel"], /* Додано для адмін-панелі */
+.form-group input[type="email"], /* Додано для адмін-панелі */
+.form-group input[type="url"], /* Додано для адмін-панелі */
+.form-group textarea, /* Додано для адмін-панелі */
+.form-group select /* Додано для адмін-панелі */
+ {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="url"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #6daee1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(109, 174, 225, 0.3);
+}
+
+.submit-button {
+    background-color: #007bff; /* Яскравий синій */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #0069d9; /* Трохи темніший синій */
+    transform: translateY(-1px);
+}
+
+.login-message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: red;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    .logo-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .logo-image {
+        width: 60px;
+        height: 60px;
+        
+    }
+    .site-title {
+        font-size: 2.2em;
+    }
+    .admin-button {
+        width: 100%;
+        max-width: 250px;
+    }
+    .section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .section h2 {
+        font-size: 1.8em;
+    }
+    .categories-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .category-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    .establishments-table th,
+    .establishments-table td {
+        padding: 8px 10px;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.8em;
+    }
+    .news-card h3 {
+        font-size: 1.2em;
+    }
+    .establishments-table {
+        font-size: 0.85em;
+    }
+}
+
+/* Специфічні стилі для прозорості та Z-індексу для елементів адмін-панелі */
+.admin-dashboard,
+.tab-content,
+.data-list,
+.admin-form-container {
+    background-color: rgba(255, 255, 255, 0.85); /* Білий з прозорістю */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Зберігаємо тінь для об'ємності */
+}
+
+.data-item {
+    background-color: rgba(240, 248, 255, 0.9); /* Дуже світло-блакитний з більшою прозорістю для карток новин/закладів */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Модальне вікно (фон затемнення) */
+/* Це був конфлікт. Тепер .modal має свій rgba, який ми не змінюємо */
+/* background-color: transparent; */ /* Цей рядок в кінці коду не потрібен, оскільки .modal вже має background-color: rgba(0,0,0,0.6); */
+
+/* Додано відступи для контейнера, щоб стікери не перекривалися контентом */
+.container {
+    padding-left: 220px; /* Відступ зліва для sticker2 */
+    padding-right: 220px; /* Відступ справа для sticker1 */
+}
+
+/* Можливо, потрібно буде додати відступ для .main-content або .section, якщо .container не є прямим обгортувачем */
+.main-content .container {
+    padding-left: 20px; /* Повертаємо стандартний відступ, якщо .container вже має загальний відступ */
+    padding-right: 20px;
+}
+.section .container { /* Якщо секції мають в собі .container */
+     padding-left: 20px;
+     padding-right: 20px;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Підтримка Ветеранів Львівщини</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header class="header">
+    <div class="header-content">
+        <div class="logo-container">
+            <img src="./img/logo.png" alt="Логотип Підтримки Ветеранів" class="logo-image">
+            <h1 class="site-title" id="siteTitle">Рух ветеранів</h1>
+        </div>
+        <nav class="main-nav">
+            <button id="adminLoginBtn" class="admin-button">Вхід для адміна</button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <section id="news-section" class="section news-section">
+            <h2>Останні новини</h2>
+            <div class="news-container" id="newsContainer">
+                </div>
+        </section>
+
+        <section id="categories-section" class="section categories-section">
+            <h2>Заклади-партнери</h2>
+            <div class="categories-nav" id="categoriesNav">
+                </div>
+            <div class="establishments-table-container">
+                <table class="establishments-table" id="establishmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Назва</th>
+                            <th>Адреса</th>
+                            <th>Телефон</th>
+                            <th>Сайт/Соцмережі</th>
+                            <th>Опис</th>
+                            <th>Знижка/Умови</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+                <p id="noEstablishmentsMessage" class="no-data-message" style="display: none;">
+                    Вибачте, закладів у цій категорії поки немає.
+                </p>
+            </div>
+        </section>
+
+        <section id="contacts-section" class="section contacts-section">
+            <h2>Контакти</h2>
+            <div class="contact-info" id="contactInfo">
+                </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Підтримка Ветеранів Львівщини. Всі права захищені.</p>
+    </footer>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Вхід для адміністратора</h3>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="username">Логін:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="submit-button">Увійти</button>
+                <p id="loginMessage" class="login-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
