@@ -15,10 +15,20 @@ const PORT = process.env.PORT || 3000;
 // Використовуємо змінну середовища MONGODB_URI для рядка підключення
 const MONGODB_URI = process.env.MONGODB_URI;
 
+// Перевірка, чи встановлено MONGODB_URI. Це допомагає відловити помилку раніше.
+if (!MONGODB_URI) {
+    console.error('Помилка: Змінна середовища MONGO_URI не встановлена. Будь ласка, встановіть її в налаштуваннях веб-сервісу Render.com!');
+    process.exit(1); // Виходимо з процесу, якщо URI відсутній
+}
+
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('Successfully connected to MongoDB Atlas!'))
     .catch(err => {
-        console.error('MongoDB connection error:', err);
+        console.error('MongoDB connection error:');
+        console.error('Будь ласка, перевірте:');
+        console.error('1. Точність змінної MONGO_URI на Render.com (кожен символ, пароль, назву кластера, назву бази даних).');
+        console.error('2. Доступ до мережі в MongoDB Atlas (чи дозволено підключення з IP Render, краще 0.0.0.0/0 для тестування).');
+        console.error('Деталі помилки:', err);
         process.exit(1); // Вийти з процесу, якщо не вдалося підключитися
     });
 
@@ -73,8 +83,6 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 
 // --- Налаштування сесій ---
-// Секрет сесії має бути довгим і випадковим. Зберігайте його в змінних середовища.
-// Якщо SESSION_SECRET не встановлено, генеруємо його (тільки для розробки, не для продакшну)
 const sessionSecret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 if (!process.env.SESSION_SECRET) {
     console.warn('SESSION_SECRET не встановлено в змінних середовища. Використовується випадково згенерований. Будь ласка, встановіть його для продакшну!');
@@ -87,11 +95,13 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: MONGODB_URI,
         collectionName: 'sessions', // Назва колекції для зберігання сесій
-        ttl: 14 * 24 * 60 * 60 // Час життя сесії в секундах (14 днів)
+        ttl: 14 * 24 * 60 * 60, // Час життя сесії в секундах (14 днів)
+        autoRemove: 'interval', // Автоматично видаляти прострочені сесії
+        autoRemoveInterval: 10 // Перевіряти кожні 10 хвилин (раз на 10 хвилин)
     }),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 днів
-        secure: process.env.NODE_ENV === 'production', // true у продакшні (для HTTPS)
+        secure: process.env.NODE_ENV === 'production', // true у продакшні (для HTTPS), інакше false
         httpOnly: true // Запобігає доступ до кукі через JavaScript на стороні клієнта
     }
 }));
@@ -115,7 +125,7 @@ function isAuthenticated(req, res, next) {
 
 // --- API-точки для роботи з даними (MongoDB) ---
 
-// Отримати всі дані для адмін-панелі
+// Отримати всі дані для головної сторінки
 app.get('/api/data', async (req, res) => {
     try {
         const news = await News.find({});
@@ -130,7 +140,8 @@ app.get('/api/data', async (req, res) => {
             contacts: contacts || {}, // Повертаємо порожній об'єкт, якщо контактів немає
             admin: {
                 username: process.env.ADMIN_USERNAME,
-                password: process.env.ADMIN_PASSWORD // НЕ НАДСИЛАТИ У РЕАЛЬНОМУ ПРОЕКТІ! ТІЛЬКИ ДЛЯ СПРОЩЕНОЇ АДМІН-ПАНЕЛІ
+                // НЕ НАДСИЛАТИ ПАРОЛЬ НА КЛІЄНТ! (ЗАЛИШИВ ТІЛЬКИ ДЛЯ СПРОЩЕНОЇ АДМІН-ПАНЕЛІ, АЛЕ ЦЕ РИЗИК)
+                // password: process.env.ADMIN_PASSWORD
             }
         });
     } catch (error) {
