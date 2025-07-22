@@ -4,99 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Адмін-панель</title>
-    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="admin-style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin-style.css">
+</head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="img/logo.png" alt="Логотип" class="logo-image">
-                <h1 class="site-title" id="siteTitleAdmin">Адмін-панель</h1>
+    <div id="loginForm" class="auth-container">
+        <h2>Вхід до адмін-панелі</h2>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label for="username">Ім'я користувача:</label>
+                <input type="text" id="username" name="username" required>
             </div>
-            <nav class="main-nav">
-                <button id="logoutBtn" class="admin-button">Вийти</button>
-            </nav>
-        </div>
-    </header>
-
-    <main class="main-content">
-        <section class="section admin-dashboard">
-            <h2>Керування Контентом</h2>
-
-        <div class="admin-nav-tabs">
-                <button class="tab-button active" data-tab="news">Новини</button>
-                <button class="tab-button" data-tab="establishments">Заклади</button>
-                <button class="tab-button" data-tab="categories">Категорії</button> 
-                <button class="tab-button" data-tab="contacts">Контакти</button>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
             </div>
-
-            <div id="newsTab" class="tab-content active">
-                <h3>Керування Новинами</h3>
-                <button id="addNewsBtn" class="action-button add-button">Додати Новину</button>
-                <div id="newsList" class="data-list">
-                    </div>
-            </div>
-
-            <div id="establishmentsTab" class="tab-content">
-                <h3>Керування Закладами</h3>
-                <button id="addEstablishmentBtn" class="action-button add-button">Додати Заклад</button>
-                <div class="filter-controls">
-                    <label for="filterCategory">Фільтр за категорією:</label>
-                    <select id="filterCategory">
-                        <option value="">Всі категорії</option>
-                        </select>
-                </div>
-                <div id="establishmentsList" class="data-list">
-                    </div>
-            </div>
-<div id="establishmentsTab" class="tab-content">
-                <h3>Керування Закладами</h3>
-                <button id="addEstablishmentBtn" class="action-button add-button">Додати Заклад</button>
-                <div class="filter-controls">
-                    <label for="filterCategory">Фільтр за категорією:</label>
-                    <select id="filterCategory">
-                        <option value="">Всі категорії</option>
-                        </select>
-                </div>
-                <div id="establishmentsList" class="data-list">
-                    </div>
-            </div>
-
-            <div id="categoriesTab" class="tab-content">
-                <h3>Керування Категоріями Закладів</h3>
-                <button id="addCategoryBtn" class="action-button add-button">Додати Категорію</button>
-                <div id="categoryList" class="data-list">
-                    </div>
-            </div>
-
-            <div id="contactsTab" class="tab-content">
-                <h3>Керування Контактами</h3>
-                <div id="contactsForm" class="admin-form-container">
-                    </div>
-            </div>
-            
-            <div id="contactsTab" class="tab-content">
-                <h3>Керування Контактами</h3>
-                <div id="contactsForm" class="admin-form-container">
-                    </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2025 Адмін-панель. Всі права захищені.</p>
-    </footer>
-
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3 id="modalTitle"></h3>
-            <form id="editForm" class="admin-edit-form">
-                <button type="submit" class="submit-button">Зберегти</button>
-                <button type="button" class="action-button cancel-button">Скасувати</button>
-            </form>
-        </div>
+            <button type="submit" class="submit-button">Увійти</button>
+            <p id="loginMessage" class="login-message"></p>
+        </form>
     </div>
 
-    <script src="script.js"></script> <script src="admin-script.js"></script>
+    <div id="adminPanel" class="admin-container" style="display: none;">
+        <header class="admin-header">
+            <div class="header-content">
+                <h1 class="site-title">Адмін-панель</h1>
+                <button id="logoutBtn" class="action-button logout-button">Вийти</button>
+            </div>
+        </header>
+
+        <main class="admin-main-content">
+            <nav class="admin-nav">
+                <button class="nav-button" data-section="newsSection">Новини</button>
+                <button class="nav-button" data-section="categoriesSection">Категорії</button>
+                <button class="nav-button" data-section="establishmentsSection">Заклади</button>
+                <button class="nav-button" data-section="contactsSection">Контакти</button>
+            </nav>
+
+            <section id="newsSection" class="admin-section active">
+                <h3>Керування Новинами</h3>
+                <form id="newsForm" class="admin-form">
+                    <input type="hidden" id="newsId" name="newsId">
+                    <div class="form-group">
+                        <label for="newsTitle">Заголовок:</label>
+                        <input type="text" id="newsTitle" name="newsTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsDate">Дата:</label>
+                        <input type="date" id="newsDate" name="newsDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsShortDescription">Короткий опис:</label>
+                        <textarea id="newsShortDescription" name="newsShortDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsFullDescription">Повний опис:</label>
+                        <textarea id="newsFullDescription" name="newsFullDescription" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsImage">URL зображення:</label>
+                        <input type="url" id="newsImage" name="newsImage">
+                    </div>
+                    <button type="submit" class="submit-button">Зберегти Новину</button>
+                </form>
+                <h4>Список Новин</h4>
+                <ul id="newsList" class="data-list">
+                    </ul>
+            </section>
+
+            <section id="categoriesSection" class="admin-section">
+                <h3>Керування Категоріями</h3>
+                <form id="categoryForm" class="admin-form">
+                    <input type="hidden" id="categoryId" name="categoryId">
+                    <div class="form-group">
+                        <label for="categoryName">Назва категорії:</label>
+                        <input type="text" id="categoryName" name="categoryName" required>
+                    </div>
+                    <button type="submit" class="submit-button">Зберегти Категорію</button>
+                </form>
+                <h4>Список Категорій</h4>
+                <ul id="categoryList" class="data-list">
+                    </ul>
+            </section>
+
+            <section id="establishmentsSection" class="admin-section">
+                <h3>Керування Закладами</h3>
+                <form id="establishmentForm" class="admin-form">
+                    <input type="hidden" id="establishmentId" name="establishmentId">
+                    <div class="form-group">
+                        <label for="establishmentName">Назва закладу:</label>
+                        <input type="text" id="establishmentName" name="establishmentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentType">Тип:</label>
+                        <input type="text" id="establishmentType" name="establishmentType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentAddress">Адреса:</label>
+                        <input type="text" id="establishmentAddress" name="establishmentAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentPhone">Телефон:</label>
+                        <input type="text" id="establishmentPhone" name="establishmentPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentWorkingHours">Години роботи:</label>
+                        <input type="text" id="establishmentWorkingHours" name="establishmentWorkingHours">
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentDescription">Опис:</label>
+                        <textarea id="establishmentDescription" name="establishmentDescription" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentImage">URL зображення:</label>
+                        <input type="url" id="establishmentImage" name="establishmentImage">
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentLatitude">Широта (Latitude):</label>
+                        <input type="number" step="any" id="establishmentLatitude" name="establishmentLatitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="establishmentLongitude">Довгота (Longitude):</label>
+                        <input type="number" step="any" id="establishmentLongitude" name="establishmentLongitude">
+                    </div>
+                    <button type="submit" class="submit-button">Зберегти Заклад</button>
+                </form>
+                <h4>Список Закладів</h4>
+                <ul id="establishmentList" class="data-list">
+                    </ul>
+            </section>
+
+            <section id="contactsSection" class="admin-section">
+                <h3>Керування Контактами</h3>
+                <form id="contactsForm" class="admin-form">
+                    <div class="form-group">
+                        <label for="address">Адреса:</label>
+                        <input type="text" id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="text" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="facebook">Facebook URL:</label>
+                        <input type="url" id="facebook" name="facebook">
+                    </div>
+                    <div class="form-group">
+                        <label for="telegram">Telegram URL:</label>
+                        <input type="url" id="telegram" name="telegram">
+                    </div>
+                    <div class="form-group">
+                        <label for="instagram">Instagram URL:</label>
+                        <input type="url" id="instagram" name="instagram">
+                    </div>
+                    <button type="submit" class="submit-button">Зберегти Контакти</button>
+                </form>
+            </section>
+        </main>
+
+        <footer class="admin-footer">
+            <p>&copy; 2025 Адмін-панель. Всі права захищені.</p>
+        </footer>
+    </div>
+
+    <script src="admin-script.js"></script>
 </body>
 </html>

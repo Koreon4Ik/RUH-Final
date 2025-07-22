@@ -3,21 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Підтримка Ветеранів Львівщини</title>
+    <title>Підтримка Ветеранів Київщини</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-   <header class="header">
-    <div class="header-content">
-        <div class="logo-container">
-            <img src="./img/logo.png" alt="Логотип Підтримки Ветеранів" class="logo-image">
-            <h1 class="site-title" id="siteTitle">Рух ветеранів</h1>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="./img/logo.png" alt="Логотип Підтримки Ветеранів" class="logo-image">
+                <h1 class="site-title" id="siteTitle">Рух ветеранів</h1>
+            </div>
+            <nav class="main-nav">
+                <button id="burgerMenuBtn" class="burger-menu-button" aria-label="Відкрити меню">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
         </div>
-        <nav class="main-nav">
-            <button id="adminLoginBtn" class="admin-button">Вхід для адміна</button>
+    </header>
+
+    <aside id="mainMenu" class="main-menu">
+        <button id="closeMenuBtn" class="close-menu-button">&times;</button>
+        <nav>
+            <ul>
+                <li><a href="#news-section" class="menu-link">Новини</a></li>
+                <li>
+                    <a href="#categories-section" class="menu-link">Категорії закладів</a>
+                    <ul id="menuCategoriesList" class="sub-menu">
+                        </ul>
+                </li>
+                <li><a href="#contacts-section" class="menu-link">Контакти</a></li>
+                <li><a href="#" id="adminLoginMenuLink" class="menu-link">Вхід адміністратора</a></li>
+            </ul>
         </nav>
-    </div>
-</header>
+    </aside>
 
     <main class="main-content">
         <section id="news-section" class="section news-section">
@@ -27,27 +46,9 @@
         </section>
 
         <section id="categories-section" class="section categories-section">
-            <h2>Заклади-партнери</h2>
-            <div class="categories-nav" id="categoriesNav">
-                </div>
-            <div class="establishments-table-container">
-                <table class="establishments-table" id="establishmentsTable">
-                    <thead>
-                        <tr>
-                            <th>Назва</th>
-                            <th>Адреса</th>
-                            <th>Телефон</th>
-                            <th>Сайт/Соцмережі</th>
-                            <th>Опис</th>
-                            <th>Знижка/Умови</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-                <p id="noEstablishmentsMessage" class="no-data-message" style="display: none;">
-                    Вибачте, закладів у цій категорії поки немає.
-                </p>
+            <h2>Категорії закладів</h2>
+            <div id="allCategoriesContainer">
+                <p id="loadingCategoriesMessage">Завантаження категорій та закладів...</p>
             </div>
         </section>
 
@@ -59,7 +60,7 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2025 Підтримка Ветеранів Львівщини. Всі права захищені. Created by Клан Кочарян</p>
+        <p>&copy; 2025 Підтримка Ветеранів Київщини. Всі права захищені. Created by Клан Кочарян</p>
     </footer>
 
     <div id="adminModal" class="modal">
@@ -68,12 +69,12 @@
             <h3>Вхід для адміністратора</h3>
             <form id="adminLoginForm">
                 <div class="form-group">
-                    <label for="username">Логін:</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="usernameModal">Логін:</label>
+                    <input type="text" id="usernameModal" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Пароль:</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="passwordModal">Пароль:</label>
+                    <input type="password" id="passwordModal" name="password" required>
                 </div>
                 <button type="submit" class="submit-button">Увійти</button>
                 <p id="loginMessage" class="login-message"></p>
